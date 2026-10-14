@@ -1,0 +1,66 @@
+
+
+html {
+    animation: gradient-animation 0.00000001s ease infinite;
+}
+
+@keyframes tex{
+    0%{
+        color:white;
+    }
+    100%{
+        color:black;
+    }
+}
+
+.tex{
+    animation:tex 0.1s linear infinite;
+}
+@keyframes rotating {
+    0% {
+        transform: rotate(0deg);
+        width:100px;
+        height:100px;
+    }
+    50% {
+        transform: rotate(360deg);
+        width:1000px;
+        height:1000px;
+    }
+    100% {
+        transform: rotate(0deg);
+        width:100px;
+        height:100px;
+    }
+  }
+  .rotating {
+    animation: rotating 0.5s linear infinite;
+  }
+
+@keyframes gradient-animation{
+    0% {
+        background-color : red;
+    }
+    14% {
+        background-color : orange;
+    }
+    28% {
+        background-color : yellow;
+    }
+    42% {
+        background-color : green;
+    }
+    56% {
+        background-color : blue;
+    }
+    70% {
+        background-color : indigo;
+    }
+    84% {
+        background-color : purple;
+    }
+    100% {
+        background-color : red;
+    }
+}
+
