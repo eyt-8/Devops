@@ -1,0 +1,22 @@
+---
+- name: Déployer le site web avec Nginx
+  hosts: webservers
+  become: true # Nécessaire pour installer des paquets et modifier les dossiers système
+  tasks:
+    - name: Mettre à jour le cache apt et installer Nginx (pour Ubuntu/Debian)
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: S'assurer que le service Nginx est démarré et actif
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Copier le contenu du dossier site vers le dossier Nginx
+      copy:
+        src: "./site/" # Pointe vers votre sous-dossier site contenant le HTML, le CSS et l'image
+        dest: "/var/www/html/"
+        mode: '0644'

@@ -1,35 +1,51 @@
-name: Deploy to GitHub Pages
+name: Lint and Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main # ou master selon votre branche principale par défaut
+      - main # ou master selon votre branche principale
 
-# Autoriser les permissions de lecture et d'écriture pour le déploiement GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Permettre un seul déploiement concurrent
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Récupérer le code source (Checkout)
+      - name: Récupérer le code source
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js (pour exécuter un linter HTML)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Installer HTMLHint
+        run: npm install -g htmlhint
+
+      - name: Linter les fichiers HTML
+        run: htmlhint "**/*.html"
+
+  deploy:
+    needs: lint # Le déploiement ne s'exécute que si le lint réussit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code source
         uses: actions/checkout@v4
 
       - name: Configurer GitHub Pages
         uses: actions/configure-pages@v4
 
-      - name: Télécharger les artefacts / Téléverser les fichiers statiques
+      - name: Téléverser l'ensemble du dossier (incluant HTML, CSS, images)
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Dossier contenant vos fichiers HTML (ici la racine)
+          path: '.' # Emporte tout le répertoire (racine) avec le CSS et les images
 
       - name: Déploiement sur GitHub Pages
         id: deployment
