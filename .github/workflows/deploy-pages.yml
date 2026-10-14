@@ -1,0 +1,36 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # ou master selon votre branche principale par défaut
+
+# Autoriser les permissions de lecture et d'écriture pour le déploiement GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permettre un seul déploiement concurrent
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code source (Checkout)
+        uses: actions/checkout@v4
+
+      - name: Configurer GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Télécharger les artefacts / Téléverser les fichiers statiques
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.' # Dossier contenant vos fichiers HTML (ici la racine)
+
+      - name: Déploiement sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
