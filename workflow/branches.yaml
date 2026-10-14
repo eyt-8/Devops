@@ -1,0 +1,15 @@
+name: Branch Name Pipeline
+
+on:
+  push:
+    branches:
+      - Dev
+      - Val
+      - Prod
+
+jobs:
+  show-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Afficher la branche active
+        run: echo "La pipeline s'exécute sur la branche : ${{ github.ref_name }}"

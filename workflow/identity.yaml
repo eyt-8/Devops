@@ -1,0 +1,22 @@
+name: User Info Pipeline
+
+on: [push]
+
+jobs:
+  print-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Afficher le nom
+        run: echo "Mon nom est ${{ secrets.MY_NAME }}"
+
+  print-firstname:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Afficher le prénom
+        run: echo "Mon prénom est ${{ secrets.MY_FIRSTNAME }}"
+
+  print-email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Afficher l'email
+        run: echo "Mon email est ${{ secrets.MY_EMAIL }}"

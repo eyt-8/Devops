@@ -1,0 +1,10 @@
+name: Hello World Pipeline
+
+on: [push]
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Afficher Hello World
+        run: echo "Hello World"
