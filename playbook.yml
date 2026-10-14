@@ -1,13 +1,13 @@
 ---
 - name: Déployer le site web avec Nginx
   hosts: webservers
-  become: true # Nécessaire pour installer des paquets et modifier les dossiers système
+  become: true
   tasks:
-    - name: Mettre à jour le cache apt et installer Nginx (pour Ubuntu/Debian)
+    - name: Installer Nginx sans forcer la mise à jour du cache apt
       apt:
         name: nginx
         state: present
-        update_cache: yes
+        update_cache: no # Désactivé pour éviter le blocage de l'APT
 
     - name: S'assurer que le service Nginx est démarré et actif
       service:
@@ -17,6 +17,6 @@
 
     - name: Copier le contenu du dossier site vers le dossier Nginx
       copy:
-        src: "./site/" # Pointe vers votre sous-dossier site contenant le HTML, le CSS et l'image
+        src: "./site/"
         dest: "/var/www/html/"
         mode: '0644'
