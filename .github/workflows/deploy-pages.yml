@@ -45,7 +45,7 @@ jobs:
       - name: Téléverser l'ensemble du dossier (incluant HTML, CSS, images)
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Emporte tout le répertoire (racine) avec le CSS et les images
+          path: './site' # Emporte tout le répertoire (racine) avec le CSS et les images
 
       - name: Déploiement sur GitHub Pages
         id: deployment
